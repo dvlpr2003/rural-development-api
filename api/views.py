@@ -12,6 +12,7 @@ from rest_framework import status
 class SignupSet(ModelViewSet):
     queryset = Signup.objects.all()
     serializer_class = SignupSerializers
+# data fetching via mail
 class Get_Data_via_Email(APIView):
     def get_object(self, mail):
         try:
@@ -22,6 +23,8 @@ class Get_Data_via_Email(APIView):
         snippet = self.get_object(mail = mail)
         serializer = SignupSerializers(snippet)
         return Response(serializer.data)
+    
+# otp verification end point
 class Verify_otp(APIView):
     def get_object(self,mail):
         try:
