@@ -1,7 +1,5 @@
 from .serializers import *
-from login.models import *
 from signup.models import *
-import string
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -34,6 +32,6 @@ class Verify_otp(APIView):
     def get(self,request,mail,otp):
         snippet = self.get_object(mail = mail)
         if snippet.otp == otp:
-            return Response({"status":"Success"})
-        return Response({"status":"Invalid OTP"})
+            return Response({"Success"})
+        return Response({"Invalid OTP"})
 

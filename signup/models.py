@@ -1,7 +1,6 @@
 from django.db import models
 
 
-
 class Signup(models.Model):
     fname = models.CharField(max_length = 100,null = True)
     lname = models.CharField(max_length =100,null = True)
@@ -12,3 +11,4 @@ class Signup(models.Model):
     district = models.CharField(max_length = 100,null = False)
     pincode = models.IntegerField(null = False)
     otp = models.CharField(null = True,max_length = 100)
+    

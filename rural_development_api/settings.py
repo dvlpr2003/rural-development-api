@@ -42,8 +42,8 @@ INSTALLED_APPS = [
      "corsheaders",
     # apps
     "api",
-    'login',
     "signup",
+    "Officer",
 
 
 ]

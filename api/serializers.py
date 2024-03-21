@@ -1,6 +1,5 @@
 from django.core.mail import send_mail
 from rest_framework import serializers
-from login.models import LoginInfo
 from signup.models import *
 import string
 import random
