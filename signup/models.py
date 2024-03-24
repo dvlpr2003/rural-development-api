@@ -1,7 +1,9 @@
 from django.db import models
-
+from Officer.models import Officer
 
 class Signup(models.Model):
+    officer = models.ForeignKey(Officer,on_delete=models.CASCADE,null = True)
+    # complaint = models.ForeignKey(Complaints,on_delete = models.CASCADE,null = True)
     fname = models.CharField(max_length = 100,null = True)
     lname = models.CharField(max_length =100,null = True)
     mail = models.EmailField(max_length = 100,null = False,unique = True)
