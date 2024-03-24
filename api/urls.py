@@ -4,6 +4,7 @@ from django.urls import *
 
 route = DefaultRouter()
 route.register("signup",SignupSet)
+route.register("complaints",ComplaintSet)
 urlpatterns = [
 
     path("",include(route.urls)),

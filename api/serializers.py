@@ -2,9 +2,9 @@ from django.core.mail import send_mail
 from rest_framework import serializers
 from signup.models import *
 from Officer.models import Officer
+from Complaint.models import Complaints
 import string
 import random
-
 
 
 
@@ -28,4 +28,13 @@ class SignupSerializers(serializers.ModelSerializer):
        
         return signup_instance
 
-        
+class ComplaintsSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Complaints
+        fields = "__all__"
+    def create(self, validated_data):
+        User_instance = Signup.objects.all()[0]
+        Complaints_instance = Complaints.objects.create(user=User_instance,**validated_data)
+        return Complaints_instance
+    
+
