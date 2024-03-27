@@ -8,7 +8,9 @@ route.register("complaints",ComplaintSet)
 urlpatterns = [
 
     path("",include(route.urls)),
-    path("email/<str:mail>/",Get_Data_via_Email.as_view()),
-    path("email/<str:mail>/otp/<str:otp>/",Verify_otp.as_view())
-    
+    path("email/<str:mail>/password/<str:password>/",Get_Login.as_view()),#login end point
+    path("email/<str:mail>/otp/<str:otp>/",Verify_otp.as_view()),#otp verifying page
+    path("complaint/<str:mail>/",RaiseComplaint.as_view()), #complaint raising end point
+    path("total_user/",UserCount.as_view()),#get total user count
+    path("total_complaint/",TotalComplaints.as_view())
 ]

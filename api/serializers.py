@@ -16,7 +16,7 @@ class SignupSerializers(serializers.ModelSerializer):
         Officer_instance = Officer.objects.all()[0]
         print(Officer_instance)
         otp = ''.join(random.choices(string.digits, k=6))
-        signup_instance = Signup.objects.create(officer = Officer_instance,**validated_data)
+        signup_instance = Signup.objects.create(**validated_data)
         signup_instance.otp = otp
         signup_instance.save()
         send_mail(
@@ -32,9 +32,9 @@ class ComplaintsSerializers(serializers.ModelSerializer):
     class Meta:
         model = Complaints
         fields = "__all__"
-    def create(self, validated_data):
-        User_instance = Signup.objects.all()[0]
-        Complaints_instance = Complaints.objects.create(user=User_instance,**validated_data)
-        return Complaints_instance
+    # def create(self, validated_data):
+    #     User_instance = Signup.objects.all()[0]
+    #     Complaints_instance = Complaints.objects.create(user=User_instance,**validated_data)
+    #     return Complaints_instance
     
 

@@ -11,20 +11,36 @@ from Complaint.models import Complaints
 class SignupSet(ModelViewSet):
     queryset = Signup.objects.all()
     serializer_class = SignupSerializers
+
+
 class ComplaintSet(ModelViewSet):
     queryset = Complaints.objects.all()
     serializer_class = ComplaintsSerializers
-# data fetching via mail
-class Get_Data_via_Email(APIView):
+    
+
+class Get_Login(APIView):
     def get_object(self, mail):
         try:
             return Signup.objects.get(mail=mail)
         except Signup.DoesNotExist:
             raise Http404
-    def get(self,request,mail):
+        
+        
+    # def get(self,request,mail,password):
+    #     snippet = self.get_object(mail = mail)
+    #     serializer = SignupSerializers(snippet)
+    #     return Response(serializer.data)
+        
+
+    def get(self,request,mail,password):
         snippet = self.get_object(mail = mail)
-        serializer = SignupSerializers(snippet)
-        return Response(serializer.data)
+
+        print(snippet)
+        if snippet.password == password:
+
+            return Response({"status":"success"})
+        return Response({"status":"invalid password"})
+        
     
 # otp verification end point
 class Verify_otp(APIView):
@@ -38,6 +54,45 @@ class Verify_otp(APIView):
         if snippet.otp == otp:
             return Response({"Success"})
         return Response({"Invalid OTP"})
+    
+
+#complaint raising operations
+    
 
 
+class RaiseComplaint(APIView):
+    def get_object(self,mail):
+        try:
+            return Signup.objects.get(mail=mail)
+        except Signup.DoesNotExist:
+            raise Http404
+    def post(self,request,mail):
+        snippet = self.get_object(mail = mail)
+        ComplaintCategory=request.data.get("ComplaintCategory")
+        ComplaintImage=request.data.get("ComplaintImage")
+        ComplaintName=request.data.get("ComplaintName")
+        ComplaintLocation=request.data.get("ComplaintLocation")
+        ComplaintDistrict=request.data.get("ComplaintDistrict")
+        ComplaintPincode=request.data.get("ComplaintPincode")
+        ComplaintDes=request.data.get("ComplaintDes")
+        Complaints.objects.create(user=snippet,ComplaintCategory=ComplaintCategory,ComplaintImage=ComplaintImage,ComplaintName=ComplaintName,ComplaintLocation=ComplaintLocation,ComplaintDistrict=ComplaintDistrict,ComplaintPincode=ComplaintPincode,ComplaintDes=ComplaintDes)
+        return Response({"hi":"success"})
+    
+#Registered user count
+class UserCount(APIView):
+    def get(self,request):
+        count = Signup.objects.all().count()
+        return Response({
+            "total":count
+        })
+
+
+#total complaints
+class TotalComplaints(APIView):
+    def get(self,request):
+        count = Complaints.objects.all().count()
+        return Response({
+            "total":count
+        })
+    
 
