@@ -32,9 +32,6 @@ class ComplaintsSerializers(serializers.ModelSerializer):
     class Meta:
         model = Complaints
         fields = "__all__"
-    # def create(self, validated_data):
-    #     User_instance = Signup.objects.all()[0]
-    #     Complaints_instance = Complaints.objects.create(user=User_instance,**validated_data)
-    #     return Complaints_instance
+
     
 

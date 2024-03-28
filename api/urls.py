@@ -12,5 +12,5 @@ urlpatterns = [
     path("email/<str:mail>/otp/<str:otp>/",Verify_otp.as_view()),#otp verifying page
     path("complaint/<str:mail>/",RaiseComplaint.as_view()), #complaint raising end point
     path("total_user/",UserCount.as_view()),#get total user count
-    path("total_complaint/",TotalComplaints.as_view())
+    path("total_complaint/",TotalComplaints.as_view()),#get total complaints
 ]
