@@ -13,4 +13,7 @@ urlpatterns = [
     path("complaint/<str:mail>/",RaiseComplaint.as_view()), #complaint raising end point
     path("total_user/",UserCount.as_view()),#get total user count
     path("total_complaint/",TotalComplaints.as_view()),#get total complaints
+    path("get_user/<int:id>/",GetUSERdetails.as_view()), #get user detail using id
+    path("officer_login/<str:mail>/password/<str:password>/",Officer_Login.as_view()), #officer login
+    path("Complaint/<str:mail>/Accept",AcceptComplaint.as_view()) # complaint accepted
 ]

@@ -6,8 +6,6 @@ from Complaint.models import Complaints
 import string
 import random
 
-
-
 class SignupSerializers(serializers.ModelSerializer):
     class Meta:
         model  = Signup
@@ -31,6 +29,12 @@ class SignupSerializers(serializers.ModelSerializer):
 class ComplaintsSerializers(serializers.ModelSerializer):
     class Meta:
         model = Complaints
+        fields = "__all__"
+
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model  = Signup
         fields = "__all__"
 
     

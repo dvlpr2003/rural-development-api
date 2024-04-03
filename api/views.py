@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import status
 from Complaint.models import Complaints
+from Officer.models import Officer
 
 
 class SignupSet(ModelViewSet):
@@ -24,14 +25,7 @@ class Get_Login(APIView):
             return Signup.objects.get(mail=mail)
         except Signup.DoesNotExist:
             raise Http404
-        
-        
-    # def get(self,request,mail,password):
-    #     snippet = self.get_object(mail = mail)
-    #     serializer = SignupSerializers(snippet)
-    #     return Response(serializer.data)
-        
-
+    
     def get(self,request,mail,password):
         snippet = self.get_object(mail = mail)
 
@@ -96,6 +90,44 @@ class TotalComplaints(APIView):
         })
     
 
-
-
+class GetUSERdetails(APIView):
+    def get_object(self,id):
+        try:
+            return Signup.objects.get(id=id)
+        except Signup.DoesNotExist:
+            raise Http404
+    def get(self,request,id):
+        snippet = self.get_object(id = id)
+        user = UserDetailSerializer(snippet)
+        return Response(user.data)
     
+
+
+
+class Officer_Login(APIView):
+    def get_object(self, mail):
+        try:
+            return Officer.objects.get(Officer_mail=mail)
+        except Officer.DoesNotExist:
+            raise Http404
+    
+    def get(self,request,mail,password):
+        snippet = self.get_object(mail = mail)
+
+        if snippet.Officer_password == password:
+
+            return Response({"status":"success"})
+        return Response({"status":"invalid password"})
+    
+
+class AcceptComplaint(APIView): #Accept complaint
+    def get(self,request,mail):
+            
+            
+            send_mail(
+                'Complaint accepted',
+                f'your complaint was accepted by the officer',
+                "gayathrigaya698@gmail.com",  
+                [mail],      
+                fail_silently=False,)
+            return Response({"status":"success"})
