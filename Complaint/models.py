@@ -10,3 +10,4 @@ class Complaints (models.Model):
     ComplaintDistrict = models.CharField(max_length = 100,null = True)
     ComplaintPincode = models.IntegerField(null = True)
     ComplaintDes = models.TextField(null = True)
+    Accepted = models.BooleanField(default = False)
