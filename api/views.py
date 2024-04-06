@@ -121,13 +121,21 @@ class Officer_Login(APIView):
     
 
 class AcceptComplaint(APIView): #Accept complaint
-    def get(self,request,mail):
+    def get_object(self,id):
+        try:
+            return Complaints.objects.get(id=id)
+        except Complaints.DoesNotExist:
+            raise Http404
+
+    def post(self,request,id,mail):
+        AlterData = self.get_object(id)
+        AlterData.Accepted = True
+        AlterData.save()
             
-            
-            send_mail(
-                'Complaint accepted',
-                f'your complaint was accepted by the officer',
-                "gayathrigaya698@gmail.com",  
-                [mail],      
-                fail_silently=False,)
-            return Response({"status":"success"})
+        send_mail(
+            'Complaint accepted',
+            f'your complaint was accepted by the officer',
+            "gayathrigaya698@gmail.com",  
+            [mail],      
+            fail_silently=False,)
+        return Response({"status":"success"})

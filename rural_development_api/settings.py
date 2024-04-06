@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from storages.backends.s3boto3 import S3Boto3Storage
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -138,6 +141,20 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+AWS_ACCESS_KEY_ID = 'AKIA5FTZAA74ANS5CIPK'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'uniquebee203'
+AWS_S3_REGION_NAME = 'eu-north-1'
+MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/' 
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL= None
+AWS_S3_VERITY = True
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# Define storage classes
+class MediaStorage(S3Boto3Storage):
+    location = 'media'
+    file_overwrite = False
 
 
 
