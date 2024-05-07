@@ -135,7 +135,46 @@ class AcceptComplaint(APIView): #Accept complaint
         send_mail(
             'Complaint accepted',
             f'your complaint was accepted by the officer',
-            "gayathrigaya698@gmail.com",  
+            'gayathrigaya698@gmail.com',  
             [mail],      
             fail_silently=False,)
         return Response({"status":"success"})
+    
+
+class forgetpassword(APIView): #forgetpassword
+    def get_object(self,mail):
+        try:
+            return Signup.objects.get(mail = mail)
+        except Complaints.DoesNotExist:
+            raise Http404
+    def post(self,request,mail):
+        gmail = self.get_object(mail)
+        send_mail(
+            'Forget password',
+            f'your otp is {gmail.otp}',
+            'gayathrigaya698@gmail.com',
+            [mail],
+            fail_silently=False,)
+        return Response({"status":"success"})
+    
+class Verify_forget_otp(APIView):
+    def get_object(self,mail):
+        try:
+            return Signup.objects.get(mail=mail)
+        except Signup.DoesNotExist:
+            raise Http404
+    def get(self,request,mail,otp):
+        snippet = self.get_object(mail = mail)
+        if snippet.otp == otp:
+
+            send_mail(
+
+                'Forget password',
+                f'your otp is {snippet.password}',
+                'gayathrigaya698@gmail.com',
+
+                [mail],
+                fail_silently=False,)
+            return Response({"Success"})
+        return Response({"Invalid OTP"})
+        

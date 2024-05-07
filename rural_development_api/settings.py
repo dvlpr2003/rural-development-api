@@ -26,11 +26,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-jteggdu@-$8yrodip3ez8k+g1_f30ulf&t@z+%_rxy9*ns^#@='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 ALLOWED_HOSTS = [
-    # "localhost",'dvlpr2003.pythonanywhere.com'
+    "localhost",'dvlpr2003.pythonanywhere.com'
 ]
 
 
@@ -149,7 +149,8 @@ import boto3
 
 s3_client = boto3.client('s3')
 
-
+AWS_ACCESS_KEY_ID = 'AKIA5FTZAA74ANS5CIPK'
+AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'uniquebee203'
 AWS_S3_REGION_NAME = 'eu-north-1'
 MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/' 

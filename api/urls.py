@@ -15,5 +15,7 @@ urlpatterns = [
     path("total_complaint/",TotalComplaints.as_view()),#get total complaints
     path("get_user/<int:id>/",GetUSERdetails.as_view()), #get user detail using id
     path("officer_login/<str:mail>/password/<str:password>/",Officer_Login.as_view()), #officer login
-    path("Complaint/<str:mail>/Accept/<int:id>/",AcceptComplaint.as_view()) # complaint accepted
+    path("Complaint/<str:mail>/Accept/<int:id>/",AcceptComplaint.as_view()), # complaint accepted
+    path("forgetpassword/<str:mail>/",forgetpassword.as_view()), #forgetpassword
+    path("forget/verify/<str:mail>/<str:otp>/",Verify_forget_otp.as_view()),#verify-forget password
 ]
